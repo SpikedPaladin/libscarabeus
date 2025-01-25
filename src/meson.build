@@ -36,22 +36,6 @@ pkg.generate(
     requires: ['gtk4']
 )
 
-custom_target(
-    'typelib',
-    
-    command: [
-        find_program('g-ir-compiler'),
-        
-        '--shared-library=' + lib.full_path().split('/')[-1],
-        '--output=@OUTPUT@',
-        meson.current_build_dir() / (gir_name + '.gir')
-    ],
-    output: gir_name + '.typelib',
-    depends: lib,
-    install: true,
-    install_dir: get_option('libdir') / 'girepository-1.0'
-)
-
 lib_dependency = declare_dependency(
     link_with: lib,
     include_directories: include_directories('.')
